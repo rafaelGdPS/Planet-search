@@ -1,9 +1,12 @@
 import React from 'react';
-import './App.css';
+import styles from './App.module.css';
+import Table from './components/Table';
 
 function App() {
   return (
-    <span>Hello, App!</span>
+    <main className={ styles.app }>
+      <Table />
+    </main>
   );
 }
 
