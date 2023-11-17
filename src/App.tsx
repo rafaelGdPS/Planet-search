@@ -1,10 +1,12 @@
 import React from 'react';
-import styles from './App.module.css';
+// import styles from './App.module.css';
 import Table from './components/Table';
+import Filters from './components/Filters';
 
 function App() {
   return (
-    <main className={ styles.app }>
+    <main>
+      <Filters />
       <Table />
     </main>
   );

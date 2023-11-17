@@ -15,4 +15,5 @@ export type PlanetObject = {
 };
 export type ContextType = {
   planets: PlanetObject[]
+  filterPLanetByName: (name: string) => void,
 };
