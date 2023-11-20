@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import StarWarsPlanetContext from '../Context/starWarsPlanetContext';
+import Filters from './Filterers';
 
-function Filters() {
-  const [inputValue, setInputValue] = useState({ name: '' });
+function Search() {
+  const { inputValue, setInputValue } = useContext(StarWarsPlanetContext);
   const { filterPLanetByName } = useContext(StarWarsPlanetContext);
-  console.log(inputValue.name);
+  console.log(inputValue);
 
   useEffect(() => {
     filterPLanetByName(inputValue.name);
@@ -27,7 +28,8 @@ function Filters() {
         onChange={ handleChange }
         data-testid="name-filter"
       />
+      <Filters handleChange={ handleChange } />
     </header>
   );
 }
-export default Filters;
+export default Search;
