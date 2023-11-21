@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import StarWarsPlanetContext from '../Context/starWarsPlanetContext';
+import { InputValueType } from '../Types/type';
 
 type FiltersProps = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement >) => void
@@ -13,14 +14,21 @@ function Filters({ handleChange }: FiltersProps) {
     setPlanetFiltered,
 
   } = useContext(StarWarsPlanetContext);
+  const [multifilters, setMultiFilters] = useState<InputValueType[]>([]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleFilter = (e: React.FormEvent) => {
     e.preventDefault();
-    const planetFiltered = filterNumeric(inputValue);
-    setPlanetFiltered(planetFiltered);
+    setMultiFilters([...multifilters, inputValue]);
   };
+  useEffect(() => {
+    console.log(multifilters);
+
+    const planetFiltered = filterNumeric(multifilters);
+    setPlanetFiltered(planetFiltered);
+  }, [multifilters]);
+
   return (
-    <form action="" onSubmit={ handleSubmit }>
+    <form action="" onSubmit={ handleFilter }>
       <select
         name="colum"
         id="colum"

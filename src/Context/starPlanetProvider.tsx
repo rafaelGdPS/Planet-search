@@ -11,6 +11,7 @@ function StarPlanetProvider({ children }: Props) {
   const [planetData, setPlanetData] = useState<PlanetObject[]>([]);
   const [planetsFiltered, setPlanetFiltered] = useState<PlanetObject[]>([]);
   const [inputValue, setInputValue] = useState(INITIAL_INPUTVALUE);
+  // const [multifilters, setMultiFilters] = useState<InputValueType[]>([]);
 
   const filterPLanetByName = (name: string) => {
     const filterdPlanet = planetData.filter((planet) => {
@@ -24,18 +25,23 @@ function StarPlanetProvider({ children }: Props) {
     }
   };
 
-  const filterNumeric = ({ colum, comparison, value }: InputValueType) => {
+  const filterNumeric = (object: InputValueType[]) => {
+    // console.log(object);
+
     const numericFilter = planetsFiltered.filter((planet) => {
-      switch (comparison) {
-        case 'maior que':
-          return Number(planet[colum as keyof PlanetObject]) > Number(value);
-        case 'menor que':
-          return Number(planet[colum as keyof PlanetObject]) < Number(value);
-        case 'igual a':
-          return Number(planet[colum as keyof PlanetObject]) === Number(value);
-        default:
-          return '';
-      }
+      const eachFilter = object.every(({ colum, comparison, value }) => {
+        switch (comparison) {
+          case 'maior que':
+            return Number(planet[colum as keyof PlanetObject]) > Number(value);
+          case 'menor que':
+            return Number(planet[colum as keyof PlanetObject]) < Number(value);
+          case 'igual a':
+            return Number(planet[colum as keyof PlanetObject]) === Number(value);
+          default:
+            return '';
+        }
+      });
+      return eachFilter;
     });
     return numericFilter;
     console.log(numericFilter);

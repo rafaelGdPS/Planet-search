@@ -30,7 +30,7 @@ export type ContextType = {
     comparison: string;
     value: string;
   }>>,
-  filterNumeric: (object: InputValueType) => PlanetObject[],
+  filterNumeric: (object: InputValueType[]) => PlanetObject[],
   setPlanetFiltered: React.Dispatch<React.SetStateAction<PlanetObject[]>>
 };
 

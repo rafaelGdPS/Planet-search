@@ -5,11 +5,11 @@ import Filters from './Filterers';
 function Search() {
   const { inputValue, setInputValue } = useContext(StarWarsPlanetContext);
   const { filterPLanetByName } = useContext(StarWarsPlanetContext);
-  console.log(inputValue);
+  // console.log(inputValue);
 
   useEffect(() => {
     filterPLanetByName(inputValue.name);
-  }, [inputValue]);
+  }, [inputValue.name]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement >) => {
     const { name, value } = e.target;
