@@ -1,28 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react';
 import StarWarsPlanetContext from '../Context/starWarsPlanetContext';
-import { InputValueType } from '../Types/type';
+import { INITIAL_INPUTVALUE, InputValueType } from '../Types/type';
 
 type FiltersProps = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement >) => void
-
 };
+
+const INITIAL_NUMERICS_COLUMNS = [
+  'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+];
 
 function Filters({ handleChange }: FiltersProps) {
   const {
     filterNumeric,
     inputValue,
     setPlanetFiltered,
+    setInputValue,
 
   } = useContext(StarWarsPlanetContext);
   const [multifilters, setMultiFilters] = useState<InputValueType[]>([]);
+  const [columns, setColumns] = useState(INITIAL_NUMERICS_COLUMNS);
+
+  // const renderFilter = () => {
+  //   multifilters.map((filter) => {
+
+  //     return keys;
+  //   });
+  // };
 
   const handleFilter = (e: React.FormEvent) => {
     e.preventDefault();
+    const keys = columns.filter((column) => column !== inputValue.colum);
+    setColumns(keys);
     setMultiFilters([...multifilters, inputValue]);
   };
   useEffect(() => {
-    console.log(multifilters);
-
+    setInputValue({ ...INITIAL_INPUTVALUE, colum: columns[0] });
     const planetFiltered = filterNumeric(multifilters);
     setPlanetFiltered(planetFiltered);
   }, [multifilters]);
@@ -35,11 +48,9 @@ function Filters({ handleChange }: FiltersProps) {
         data-testid="column-filter"
         onChange={ handleChange }
       >
-        <option value="population">population</option>
-        <option value="orbital_period">orbital_period</option>
-        <option value="diameter">diameter</option>
-        <option value="rotation_period">rotation_period</option>
-        <option value="surface_water">surface_water</option>
+        { columns.map((column) => (
+          <option key={ column } value={ column }>{column}</option>
+        )) }
 
       </select>
       <select

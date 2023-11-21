@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import StarWarsPlanetContext from '../Context/starWarsPlanetContext';
 import { PlanetObject } from '../Types/type';
 import PlanetCard from './planetCard';
