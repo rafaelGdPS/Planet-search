@@ -40,3 +40,7 @@ export const INITIAL_INPUTVALUE = {
   comparison: 'maior que',
   value: '0',
 };
+
+export const INITIAL_NUMERICS_COLUMNS = [
+  'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
+];

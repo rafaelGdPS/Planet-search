@@ -1,14 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import StarWarsPlanetContext from '../Context/starWarsPlanetContext';
-import { INITIAL_INPUTVALUE, InputValueType } from '../Types/type';
+import {
+  INITIAL_INPUTVALUE, INITIAL_NUMERICS_COLUMNS, InputValueType,
+} from '../Types/type';
+import SortFilter from './SortFilter';
 
 type FiltersProps = {
   handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement >) => void
 };
-
-const INITIAL_NUMERICS_COLUMNS = [
-  'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
-];
 
 function Filters({ handleChange }: FiltersProps) {
   const {
@@ -21,12 +20,10 @@ function Filters({ handleChange }: FiltersProps) {
   const [multifilters, setMultiFilters] = useState<InputValueType[]>([]);
   const [columns, setColumns] = useState(INITIAL_NUMERICS_COLUMNS);
 
-  // const renderFilter = () => {
-  //   multifilters.map((filter) => {
-
-  //     return keys;
-  //   });
-  // };
+  const handleClear = () => {
+    setMultiFilters([]);
+    setColumns(INITIAL_NUMERICS_COLUMNS);
+  };
 
   const handleFilter = (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,45 +31,70 @@ function Filters({ handleChange }: FiltersProps) {
     setColumns(keys);
     setMultiFilters([...multifilters, inputValue]);
   };
+
+  const handleClick = (coluna: string) => {
+    const deleteFilter = multifilters.filter((filter) => filter.colum !== coluna);
+    setMultiFilters(deleteFilter);
+    setColumns([...columns, coluna]);
+  };
   useEffect(() => {
     setInputValue({ ...INITIAL_INPUTVALUE, colum: columns[0] });
     const planetFiltered = filterNumeric(multifilters);
     setPlanetFiltered(planetFiltered);
+    console.log(planetFiltered);
+    console.log(multifilters);
   }, [multifilters]);
 
   return (
-    <form action="" onSubmit={ handleFilter }>
-      <select
-        name="colum"
-        id="colum"
-        data-testid="column-filter"
-        onChange={ handleChange }
-      >
-        { columns.map((column) => (
-          <option key={ column } value={ column }>{column}</option>
-        )) }
+    <>
+      <form action="" onSubmit={ handleFilter }>
+        <select
+          name="colum"
+          id="colum"
+          data-testid="column-filter"
+          onChange={ handleChange }
+        >
+          { columns.map((column) => (
+            <option key={ column } value={ column }>{column}</option>
+          )) }
 
-      </select>
-      <select
-        name="comparison"
-        id="comparison"
-        data-testid="comparison-filter"
-        onChange={ handleChange }
-      >
-        <option value="maior que">maior que</option>
-        <option value="menor que">menor que</option>
-        <option value="igual a">igual a</option>
-      </select>
-      <input
-        type="number"
-        name="value"
-        id="comparison-value"
-        value={ inputValue.value }
-        data-testid="value-filter"
-        onChange={ handleChange }
-      />
-      <button type="submit" data-testid="button-filter">Filtro</button>
-    </form>
+        </select>
+        <select
+          name="comparison"
+          id="comparison"
+          data-testid="comparison-filter"
+          onChange={ handleChange }
+        >
+          <option value="maior que">maior que</option>
+          <option value="menor que">menor que</option>
+          <option value="igual a">igual a</option>
+        </select>
+        <input
+          type="number"
+          name="value"
+          id="comparison-value"
+          value={ inputValue.value }
+          data-testid="value-filter"
+          onChange={ handleChange }
+        />
+        <button type="submit" data-testid="button-filter">Filtro</button>
+        <SortFilter />
+      </form>
+      <div>
+        {multifilters.map((filter) => (
+          <p key={ filter.colum } data-testid="filter">
+            {`${filter.colum} ${filter.comparison} ${filter.value}`}
+            <button onClick={ () => handleClick(filter.colum) }>X</button>
+          </p>
+        ))}
+        <button
+          onClick={ handleClear }
+          data-testid="button-remove-filters"
+        >
+          Remover todas filtragens
+        </button>
+      </div>
+    </>
   );
 }
 export default Filters;

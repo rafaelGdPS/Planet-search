@@ -26,9 +26,7 @@ function StarPlanetProvider({ children }: Props) {
   };
 
   const filterNumeric = (object: InputValueType[]) => {
-    // console.log(object);
-
-    const numericFilter = planetsFiltered.filter((planet) => {
+    const numericFilter = planetData.filter((planet) => {
       const eachFilter = object.every(({ colum, comparison, value }) => {
         switch (comparison) {
           case 'maior que':
