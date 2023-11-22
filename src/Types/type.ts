@@ -32,6 +32,13 @@ export type ContextType = {
   }>>,
   filterNumeric: (object: InputValueType[]) => PlanetObject[],
   setPlanetFiltered: React.Dispatch<React.SetStateAction<PlanetObject[]>>
+  inputOrder: OrderValueType
+  setInputOrder: React.Dispatch<React.SetStateAction<{
+    column: string;
+    sort: string;
+  }>>
+  filterByOrder: (object: OrderValueType) => PlanetObject[]
+
 };
 
 export const INITIAL_INPUTVALUE = {
@@ -44,3 +51,11 @@ export const INITIAL_INPUTVALUE = {
 export const INITIAL_NUMERICS_COLUMNS = [
   'population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water',
 ];
+export const INITIAL_ORDER_VALUE = {
+  column: 'population',
+  sort: 'ASC',
+};
+export type OrderValueType = {
+  column: string,
+  sort: string,
+};

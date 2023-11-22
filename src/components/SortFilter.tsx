@@ -1,23 +1,36 @@
-// import { useState } from 'react';
+import React, { useContext } from 'react';
 import { INITIAL_NUMERICS_COLUMNS } from '../Types/type';
-
-// const INITIAL_ORDER_VALUE = {
-//   order: {
-//     column: 'population',
-//     sort: 'ASC',
-//   },
-// };
+import StarWarsPlanetContext from '../Context/starWarsPlanetContext';
 
 function SortFilter() {
-  // const [inputOrder, setInputOrder] = useState();
+  const {
+    inputOrder, setInputOrder, filterByOrder, setPlanetFiltered, planets,
+  } = useContext(StarWarsPlanetContext);
+  console.log(inputOrder);
 
-  const handleChange = () => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement
+  | HTMLSelectElement | HTMLFormElement>) => {
+    const { name, value } = e.target;
+    setInputOrder({ ...inputOrder,
+      [name]: value });
+  };
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    console.log(filterByOrder(inputOrder));
 
+    setPlanetFiltered(filterByOrder(inputOrder));
+    console.log(planets);
   };
   return (
-    <form action="">
-      <label htmlFor="">
-        <select name="" id="" data-testid="column-sort" onChange={ handleChange }>
+    <form action="" onSubmit={ handleSubmit }>
+      <label htmlFor="column">
+        Ordenar
+        <select
+          name="column"
+          id="column"
+          data-testid="column-sort"
+          onChange={ handleChange }
+        >
           { INITIAL_NUMERICS_COLUMNS.map((column) => (
             <option key={ column } value={ column }>{column}</option>
           )) }
@@ -25,13 +38,30 @@ function SortFilter() {
       </label>
       <label htmlFor="">
         <label htmlFor="asc">
+          ASC
+          <input
+            type="radio"
+            name="sort"
+            id="asc"
+            value="ASC"
+            onChange={ handleChange }
 
-          <input type="radio" name="sort" id="" onChange={ handleChange } />
+          />
         </label>
-        <input type="radio" name="sort" id="" onChange={ handleChange } />
+        <label htmlFor="">
+          DSC
+          <input
+            type="radio"
+            name="sort"
+            id="DSC"
+            value="DSC"
+            onChange={ handleChange }
+
+          />
+        </label>
 
       </label>
-      <button type="submit" data-testid="column-sort-button">Ordenar</button>
+      <button data-testid="column-sort-button">Ordenar</button>
     </form>
   );
 }

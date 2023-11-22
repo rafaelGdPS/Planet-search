@@ -5,6 +5,8 @@ import PlanetCard from './planetCard';
 
 function Table() {
   const { planets } = useContext(StarWarsPlanetContext);
+  console.log(planets);
+
   return (
     <table>
       <tr>

@@ -25,7 +25,7 @@ function Filters({ handleChange }: FiltersProps) {
     setColumns(INITIAL_NUMERICS_COLUMNS);
   };
 
-  const handleFilter = (e: React.FormEvent) => {
+  const handleFilter = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const keys = columns.filter((column) => column !== inputValue.colum);
     setColumns(keys);
@@ -41,13 +41,12 @@ function Filters({ handleChange }: FiltersProps) {
     setInputValue({ ...INITIAL_INPUTVALUE, colum: columns[0] });
     const planetFiltered = filterNumeric(multifilters);
     setPlanetFiltered(planetFiltered);
-    console.log(planetFiltered);
-    console.log(multifilters);
   }, [multifilters]);
 
   return (
     <>
       <form action="" onSubmit={ handleFilter }>
+
         <select
           name="colum"
           id="colum"
@@ -78,8 +77,8 @@ function Filters({ handleChange }: FiltersProps) {
           onChange={ handleChange }
         />
         <button type="submit" data-testid="button-filter">Filtro</button>
-        <SortFilter />
       </form>
+      <SortFilter />
       <div>
         {multifilters.map((filter) => (
           <p key={ filter.colum } data-testid="filter">
