@@ -44,6 +44,7 @@ function SortFilter() {
             name="sort"
             id="asc"
             value="ASC"
+            data-testid="column-sort-input-asc"
             onChange={ handleChange }
 
           />
@@ -55,6 +56,7 @@ function SortFilter() {
             name="sort"
             id="DSC"
             value="DSC"
+            data-testid="column-sort-input-desc"
             onChange={ handleChange }
 
           />

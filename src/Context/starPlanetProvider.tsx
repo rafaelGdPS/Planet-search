@@ -29,18 +29,24 @@ function StarPlanetProvider({ children }: Props) {
   };
 
   const filterByOrder = (object: OrderValueType) => {
-    const ASC = planetsFiltered.sort((a, b) => {
+    const newArray = planetsFiltered.slice();
+    const ASC = newArray.sort((a, b) => {
       if (object.sort === 'ASC') {
+        if (b[object.column as keyof PlanetObject] === 'unknown') {
+          return -1;
+        }
         return Number(a[object.column as keyof PlanetObject])
         - Number(b[object.column as keyof PlanetObject]);
       }
       if (object.sort === 'DSC') {
+        if (b[object.column as keyof PlanetObject] === 'unknown') {
+          return -1;
+        }
         return Number(b[object.column as keyof PlanetObject])
         - Number(a[object.column as keyof PlanetObject]);
       }
       return 0;
     });
-    console.log(ASC);
 
     return ASC;
   };
