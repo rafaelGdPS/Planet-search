@@ -49,7 +49,7 @@ function SortFilter() {
 
           />
         </label>
-        <label htmlFor="">
+        <label htmlFor="dsc">
           DSC
           <input
             type="radio"

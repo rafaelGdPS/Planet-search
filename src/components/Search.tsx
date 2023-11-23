@@ -20,14 +20,18 @@ function Search() {
   };
   return (
     <header>
-      <input
-        onKeyDown={ () => filterPLanetByName(inputValue.name) }
-        type="search"
-        name="name"
-        value={ inputValue.name }
-        onChange={ handleChange }
-        data-testid="name-filter"
-      />
+      <label htmlFor="name">
+        Starwars Planet
+        <input
+          onKeyDown={ () => filterPLanetByName(inputValue.name) }
+          type="search"
+          name="name"
+          id="name"
+          value={ inputValue.name }
+          onChange={ handleChange }
+          data-testid="name-filter"
+        />
+      </label>
       <Filters handleChange={ handleChange } />
     </header>
   );
