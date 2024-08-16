@@ -46,7 +46,10 @@ function Filters({ handleChange }: FiltersProps) {
   return (
     <>
       <form action="" onSubmit={ handleFilter }>
-
+        <label htmlFor="colum">
+          {' '}
+          Coluna
+        </label>
         <select
           name="colum"
           id="colum"
@@ -58,6 +61,7 @@ function Filters({ handleChange }: FiltersProps) {
           )) }
 
         </select>
+        <label htmlFor="comparison">Operador</label>
         <select
           name="comparison"
           id="comparison"
