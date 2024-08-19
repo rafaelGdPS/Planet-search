@@ -2,12 +2,13 @@ import { useContext } from 'react';
 import StarWarsPlanetContext from '../Context/starWarsPlanetContext';
 import { PlanetObject } from '../Types/type';
 import PlanetCard from './planetCard';
+import styles from './Table.module.css';
 
 function Table() {
   const { planets } = useContext(StarWarsPlanetContext);
 
   return (
-    <table>
+    <table className={ styles.table_container }>
       <tr>
         <th>Name</th>
         <th>Rotation Period</th>
