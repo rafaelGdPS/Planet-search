@@ -1,0 +1,16 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table, th, td {
+  border: 2px solid rgb(252, 235, 235);
+  text-align: center;
+}
+
+.table_container {
+  width: 50%;
+  height: 100vh;
+  margin: 20px;
+  font-size: 12px ;
+}
